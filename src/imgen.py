@@ -340,7 +340,7 @@ class ImageGenerator():
         # Optimization with gradients
         gradients_of_generator = gen_tape.gradient(gen_loss, [self.__generator_params])
         gradients_of_discriminator = disc_tape.gradient(disc_loss, self.__discriminator.trainable_variables)
-
+        gradients_of_generator = tf.cast(gradients_of_generator, dtype='float32')
         self.__generator_optimizer.apply_gradients(zip(gradients_of_generator, [self.__generator_params]))
         self.__discriminator_optimizer.apply_gradients(zip(gradients_of_discriminator, self.__discriminator.trainable_variables))
 
